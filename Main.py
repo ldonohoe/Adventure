@@ -2,7 +2,8 @@ import pygame, Map
 from math import *
 from Player import Player
 from Camera import Camera
-
+from NPC import *
+# Use this for a title screen 
 def init(screen):
 	pygame.init()
 
@@ -39,24 +40,31 @@ def game(screen):
 	clock = pygame.time.Clock()
 	player = Player()
 	camera = Camera()
-
+	npc = NPC()
 
 	player_s 	= pygame.sprite.Group() # Handles player movements and updates
 	map_s 		= pygame.sprite.Group() # Handles map movements
+	npc_s 		= pygame.sprite.Group()
+	mapRep = []
 
 	# for tile in range(0, len(Map.map_tiles)):
 	# 	Map.map_files.append(pygame.image.load('resources/' + Map.map_tiles[tile]))
-	# # Create map
+	# Create map
 	for x in range(0, 50):
+		mapRep.append([])
 		for y in range(0, 50):
 			map_s.add(Map.Map(x * 50, y * 50, 0, x%2 or y%2))
+			mapRep[x].append(x%2 or y%2)
 
 
 	player_s.add(player)
+	npc_s.add(npc)
 	camera.setCam(player.x, player.y)
 
 	w_center = int(pygame.display.Info().current_w/2)
 	h_center = int(pygame.display.Info().current_h/2)
+
+	initNPC(w_center, h_center)
 
 	while not done:
 		for event in pygame.event.get(): # User did something
@@ -69,13 +77,16 @@ def game(screen):
 
 		surrounding = getSurrounding(screen)
 
-	
 		player.handle_keys()	
 		player.update_player(surrounding)
 		camera.setCam(player.x, player.y)
 
 		player_s.update(camera.x, camera.y)
 		player_s.draw(screen)
+
+
+		npc_s.update(camera.x, camera.y, surrounding)
+		npc_s.draw(screen)
 
 
 		pygame.display.flip()
@@ -85,7 +96,7 @@ def game(screen):
 def getSurrounding(screen):
 	w_center = int(pygame.display.Info().current_w/2)
 	h_center = int(pygame.display.Info().current_h/2)
-	print(w_center, h_center)
+
 	left = screen.get_at((w_center - 50, h_center))
 	right = screen.get_at((w_center + 50, h_center))
 	up = screen.get_at((w_center, h_center - 50))

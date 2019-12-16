@@ -35,7 +35,7 @@ class Player(pygame.sprite.Sprite):
 		self.facing = getDirec(self.move, self.facing)
 
 		if (surrounding[self.facing].b > 0):
-			print(surrounding[self.facing])
+			pass
 		else:
 			self.x += self.move[0] * 50
 			self.y += self.move[1] * 50
@@ -57,7 +57,6 @@ class Player(pygame.sprite.Sprite):
 		if key[pygame.K_UP]:
 			self.move =  UP
 			self.image = pygame.transform.rotate(self.image_orig, 180)
-
 
 		if key[pygame.K_DOWN]:
 			self.move =  DOWN

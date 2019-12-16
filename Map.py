@@ -1,11 +1,11 @@
 import pygame
-mapTiles = []
-mapFiles = ["blankMap.png", "coolMap.png"]
+mapFiles = []
+mapTiles = ["blankMap.png", "coolMap.png"]
 
 class Map(pygame.sprite.Sprite):
     def __init__(self, x, y, rot, tile):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("resources/" + mapFiles[tile])
+        self.image = pygame.image.load("resources/" + mapTiles[tile])
         self.rect = self.image.get_rect()
         self.type = tile
 

@@ -3,6 +3,7 @@ from math import *
 from Player import Player
 from Camera import Camera
 from NPC import *
+from random import *
 # Use this for a title screen 
 def init(screen):
 	pygame.init()
@@ -50,13 +51,14 @@ def game(screen):
 	# for tile in range(0, len(Map.map_tiles)):
 	# 	Map.map_files.append(pygame.image.load('resources/' + Map.map_tiles[tile]))
 	# Create map
-	for x in range(0, 50):
+	for x in range(0, 10):
 		mapRep.append([])
-		for y in range(0, 50):
-			map_s.add(Map.Map(x * 50, y * 50, 0, x%2 or y%2))
-			mapRep[x].append(x%2 or y%2)
+		for y in range(0, 10):
+			map_s.add(Map.Map(250 + x * 50, 250 + y * 50, 0, Map.map_1[x][y]))	
+			mapRep[x].append(Map.map_1[x][y])
 
-
+	playerCoord = (player.x/50, player.y/50)
+	npcCoord = (npc.x/50 - 1, npc.y/50 - 1)
 	player_s.add(player)
 	npc_s.add(npc)
 	camera.setCam(player.x, player.y)
@@ -72,35 +74,59 @@ def game(screen):
 				done=True	
 		screen.blit(background, (0,0))
 
+
+		pSurrounding = getSurround(mapRep, playerCoord[0], playerCoord[1])
+		player.handle_keys()	
+		player.update_player(pSurrounding)
+
+		camera.setCam(player.x, player.y)
+
 		map_s.update(camera.x, camera.y)
 		map_s.draw(screen)
-
-		surrounding = getSurrounding(screen)
-
-		player.handle_keys()	
-		player.update_player(surrounding)
-		camera.setCam(player.x, player.y)
 
 		player_s.update(camera.x, camera.y)
 		player_s.draw(screen)
 
-
-		npc_s.update(camera.x, camera.y, surrounding)
+		npcSurrounding = getSurround(mapRep, npcCoord[0], npcCoord[1])
+		npc_s.update(camera.x, camera.y, npcSurrounding)
 		npc_s.draw(screen)
-
 
 		pygame.display.flip()
 
-		clock.tick(10)
+		clock.tick(30)
 
-def getSurrounding(screen):
-	w_center = int(pygame.display.Info().current_w/2)
-	h_center = int(pygame.display.Info().current_h/2)
+		playerCoord = (player.x/50, player.y/50)
+		npcCoord = (npc.x/50 - 1, npc.y/50 - 1)
 
-	left = screen.get_at((w_center - 50, h_center))
-	right = screen.get_at((w_center + 50, h_center))
-	up = screen.get_at((w_center, h_center - 50))
-	down = screen.get_at((w_center, h_center + 50))
+def getSurround(mapRep, x, y):
+	x = int(x)
+	y = int(y)
+
+	up = 0
+	down = 0
+	left = 0
+	right = 0
+
+	if x == 0:
+		x += 1
+	if x == 9:
+		x -= 1
+	if y == 0:
+		y += 1
+	if y == 9:
+		y -= 1
+
+
+	up = mapRep[x][y-1]
+
+	right = mapRep[x+1][y]
+
+	down = mapRep[x][y+1]
+
+	left = mapRep[x-1][y]
+
+
+	print(up, left, down, right)
 
 	return (up, left, down, right)
 

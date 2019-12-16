@@ -2,6 +2,24 @@ import pygame
 mapFiles = []
 mapTiles = ["blankMap.png", "coolMap.png"]
 
+
+map_1 = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0, 0, 1, 0, 0, 0],
+        [0, 1, 0, 0, 0, 0, 1, 0, 0, 0],
+        [0, 1, 0, 1, 1, 0, 1, 0, 0, 0],
+        [0, 1, 0, 0, 1, 0, 1, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+        ]
+
+# Types of map tiles:
+#   0: Walkable, regular ground
+#   1: Walkable, state change
+#   2: Non-Walkable, wall or other
+
 class Map(pygame.sprite.Sprite):
     def __init__(self, x, y, rot, tile):
         pygame.sprite.Sprite.__init__(self)

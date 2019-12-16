@@ -18,6 +18,7 @@ class Player(pygame.sprite.Sprite):
 		pygame.sprite.Sprite.__init__(self)
 		CENTERX = int(pygame.display.Info().current_w / 2)
 		CENTERY = int(pygame.display.Info().current_h / 2)
+		print(CENTERX, CENTERY)
 		self.x = CENTERX
 		self.y = CENTERY
 		self.facing = 0
@@ -29,14 +30,11 @@ class Player(pygame.sprite.Sprite):
 		self.rect.topleft = self.x, self.y
 		self.move = (0, 0)
 
-	def update_player(self, surrounding):
+	def update_player(self, surround):
 
 
 		self.facing = getDirec(self.move, self.facing)
-
-		if (surrounding[self.facing].b > 0):
-			pass
-		else:
+		if surround[self.facing] == 1:
 			self.x += self.move[0] * 50
 			self.y += self.move[1] * 50
 

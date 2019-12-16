@@ -4,8 +4,8 @@
 class Camera():
 	
 	def __init__(self):
-		self.x = 250
-		self.y = 250
+		self.x = 100
+		self.y = 100
 
 	def setCam(self, x, y):
 		self.x = x

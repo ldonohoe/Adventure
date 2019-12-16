@@ -23,7 +23,7 @@ class NPC(pygame.sprite.Sprite):
 		self.x = CENTERX + 50
 		self.y = CENTERY + 50
 		self.facing = 0
-		self.image = pygame.image.load('resources/player.png')
+		self.image = pygame.image.load('resources/NPC.png')
 		colorkey = self.image.get_at((0,0))
 		self.image.set_colorkey(colorkey, RLEACCEL)
 		self.image_orig = self.image
@@ -32,21 +32,22 @@ class NPC(pygame.sprite.Sprite):
 		self.move = (0, 0)
 
 
-	def update(self, x, y, surrounding):
+	def update(self, x, y, surround):
 
 		randMoveChance = randint(0, 100)
-		if randMoveChance > 80:
+		if randMoveChance > 50:
 			randMove = randint(0, 3)
 
 			self.facing = getDirec(self.move, self.facing)
 
-
 			self.move = MOVES[randMove]
-			self.image = pygame.transform.rotate(self.image_orig, ROTS[randMove])
 
+			if surround[self.facing] == 1:
+				self.x += self.move[0] * 50
+				self.y += self.move[1] * 50
 
-			self.x += self.move[0] * 50
-			self.y += self.move[1] * 50
+				self.image = pygame.transform.rotate(self.image_orig, ROTS[randMove])
+
 
 			#self.rect.topleft = self.x-x, self.y-y
 

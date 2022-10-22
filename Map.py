@@ -1,6 +1,6 @@
 import pygame
 mapFiles = []
-mapTiles = ["blankMap.png", "coolMap.png"]
+mapTiles = ["blankMap.png", "coolMap.png", "winMap.png"]
 
 
 map_1 = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -12,7 +12,7 @@ map_1 = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 2]
         ]
 
 # Types of map tiles:

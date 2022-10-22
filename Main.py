@@ -101,6 +101,7 @@ def game(screen):
 def getSurround(mapRep, x, y):
 	x = int(x)
 	y = int(y)
+	print(x, y)
 
 	up = 0
 	down = 0
@@ -108,22 +109,21 @@ def getSurround(mapRep, x, y):
 	right = 0
 
 	if x == 0:
-		x += 1
+		left = -1
+	else:
+		left = mapRep[x-1][y]
 	if x == 9:
-		x -= 1
+		right = -1
+	else:
+		right = mapRep[x+1][y]
 	if y == 0:
-		y += 1
+		up = -1
+	else:
+		up = mapRep[x][y-1]
 	if y == 9:
-		y -= 1
-
-
-	up = mapRep[x][y-1]
-
-	right = mapRep[x+1][y]
-
-	down = mapRep[x][y+1]
-
-	left = mapRep[x-1][y]
+		down = -1
+	else:
+		down = mapRep[x][y+1]
 
 
 	print(up, left, down, right)

@@ -29,16 +29,20 @@ class Player(pygame.sprite.Sprite):
 		self.rect = self.image.get_rect()
 		self.rect.topleft = self.x, self.y
 		self.move = (0, 0)
+		self.tile = 1
 
 	def update_player(self, surround):
-
-
-		self.facing = getDirec(self.move, self.facing)
-		if surround[self.facing] == 1:
-			self.x += self.move[0] * 50
-			self.y += self.move[1] * 50
-
+		if self.move == (0,0):
+			pass
+		else:
+			self.facing = getDirec(self.move, self.facing)
+			print(f"Facing: {self.facing}")
+			if surround[self.facing] > 0:
+				self.x += self.move[0] * 50
+				self.y += self.move[1] * 50
+				self.tile = surround[self.facing]
 		self.move = (0, 0)
+		self.check_win()
 
 
 	def handle_keys(self):
@@ -59,6 +63,10 @@ class Player(pygame.sprite.Sprite):
 		if key[pygame.K_DOWN]:
 			self.move =  DOWN
 			self.image = self.image_orig
+	
+	def check_win(self):
+		if self.tile == 2:
+			print("You won!")
 
 
 def getDirec(move, current):
